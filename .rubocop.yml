@@ -1,0 +1,51 @@
+inherit_gem:
+  relaxed-rubocop: .rubocop.yml
+
+require:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 2.7
+  Exclude:
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'db/**/*'
+    - 'vendor/**/*'
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+
+Style/MethodCallWithArgsParentheses:
+  Enabled: false
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/MessageSpies:
+  EnforcedStyle: receive
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+Lint/MissingSuper:
+  Enabled: false
