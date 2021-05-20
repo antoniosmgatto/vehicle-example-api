@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :vehicle do
     license_plate { Faker::Vehicle.license_plate }
