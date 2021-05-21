@@ -1,0 +1,191 @@
+---
+openapi: 3.0.1
+info:
+  title: Vehicle API V1
+  version: v1
+  description: This is the first version of my API
+components:
+  schemas:
+    errors_object:
+      type: object
+      properties:
+        errors:
+          "$ref": "#/components/schemas/errors_map"
+    errors_map:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: string
+    vehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+        license_plate:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        category:
+          type: string
+        vin:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - license_plate
+      - make
+      - model
+      - color
+      - category
+      - vin
+    vehicle_new:
+      type: object
+      properties:
+        license_plate:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        category:
+          type: string
+        vin:
+          type: string
+      required:
+      - license_plate
+      - make
+      - model
+      - color
+      - category
+      - vin
+    vehicle_edit:
+      type: object
+      properties:
+        license_plate:
+          type: string
+        make:
+          type: string
+        model:
+          type: string
+        color:
+          type: string
+        category:
+          type: string
+        vin:
+          type: string
+paths:
+  "/vehicles":
+    get:
+      summary: list vehicles
+      tags:
+      - Vehicles
+      description: List all vehicles
+      responses:
+        '200':
+          description: success
+    post:
+      summary: create vehicle
+      tags:
+      - Vehicles
+      parameters: []
+      responses:
+        '201':
+          description: created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/vehicle"
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/errors_object"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/vehicle_new"
+  "/vehicles/{id}":
+    parameters:
+    - name: id
+      in: path
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: show vehicle
+      tags:
+      - Vehicles
+      responses:
+        '200':
+          description: success
+        '404':
+          description: not_found
+    patch:
+      summary: update vehicle
+      tags:
+      - Vehicles
+      parameters: []
+      responses:
+        '200':
+          description: success
+        '404':
+          description: not_found
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/errors_object"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/vehicle_edit"
+    put:
+      summary: update vehicle
+      tags:
+      - Vehicles
+      parameters: []
+      responses:
+        '200':
+          description: success
+        '404':
+          description: not_found
+        '422':
+          description: unprocessable_entity
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/errors_object"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/vehicle_edit"
+    delete:
+      summary: delete vehicle
+      tags:
+      - Vehicles
+      responses:
+        '204':
+          description: no_content
+        '404':
+          description: not_found
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: localhost:3000
