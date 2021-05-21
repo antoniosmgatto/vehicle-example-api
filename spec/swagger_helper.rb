@@ -40,39 +40,39 @@ RSpec.configure do |config|
           vehicle: {
             type: :object,
             properties: {
-              id: { type: :integer },
-              license_plate: { type: :string },
-              make: { type: :string },
-              model: { type: :string },
-              color: { type: :string },
-              category: { type: :string },
-              vin: { type: :string },
+              id: { type: :integer, example: 1 },
+              license_plate: { type: :string, example: "AAA9999" },
+              make: { type: :string, example: "Mercedes-Benz" },
+              model: { type: :string, example: "1113" },
+              color: { type: :string, example: "Azul" },
+              category: { type: :string, example: "Caminhão" },
+              vin: { type: "string", example: "3TW HZXRAU W3 AA2893" },
               created_at: { type: :string, format: "date-time" },
               updated_at: { type: :string, format: "date-time" }
             },
-            required: %w(license_plate make model color category vin)
+            required: %w(id license_plate make model color category vin)
           },
           vehicle_new: {
             type: :object,
             properties: {
-              license_plate: { type: :string },
-              make: { type: :string },
-              model: { type: :string },
-              color: { type: :string },
-              category: { type: :string },
-              vin: { type: :string }
+              license_plate: { type: :string, example: "ABC9999" },
+              make: { type: :string, example: "Mercedes-Benz" },
+              model: { type: :string, example: "1113" },
+              color: { type: :string, example: "Azul" },
+              category: { type: :string, example: "Caminhão" },
+              vin: { type: "string", example: "3TW HZXRAU W3 AA2893" }
             },
             required: %w(license_plate make model color category vin)
           },
           vehicle_edit: {
             type: :object,
             properties: {
-              license_plate: { type: :string },
-              make: { type: :string },
-              model: { type: :string },
-              color: { type: :string },
-              category: { type: :string },
-              vin: { type: :string }
+              license_plate: { type: :string, example: "AAA9999" },
+              make: { type: :string, example: "Mercedes-Benz" },
+              model: { type: :string, example: "1113" },
+              color: { type: :string, example: "Azul" },
+              category: { type: :string, example: "Caminhão" },
+              vin: { type: "3TW HZXRAU W3 AA2893" }
             }
           }
         }
@@ -98,8 +98,12 @@ RSpec.configure do |config|
   config.swagger_format = :yaml
 
   config.after(:each, type: :request) do |example|
-    next if response&.body&.empty?
-
-    example.metadata[:response][:examples] = { "application/json" => JSON.parse(response.body, symbolize_names: true) }
+    if respond_to?(:response) && response.body.present?
+      example.metadata[:response][:content] = {
+        "application/json" => {
+          example: response.parsed_body
+        }
+      }
+    end
   end
 end

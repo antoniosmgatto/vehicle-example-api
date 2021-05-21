@@ -22,18 +22,25 @@ components:
       properties:
         id:
           type: integer
+          example: 1
         license_plate:
           type: string
+          example: AAA9999
         make:
           type: string
+          example: Mercedes-Benz
         model:
           type: string
+          example: '1113'
         color:
           type: string
+          example: Azul
         category:
           type: string
+          example: Caminhão
         vin:
           type: string
+          example: 3TW HZXRAU W3 AA2893
         created_at:
           type: string
           format: date-time
@@ -41,6 +48,7 @@ components:
           type: string
           format: date-time
       required:
+      - id
       - license_plate
       - make
       - model
@@ -52,16 +60,22 @@ components:
       properties:
         license_plate:
           type: string
+          example: ABC9999
         make:
           type: string
+          example: Mercedes-Benz
         model:
           type: string
+          example: '1113'
         color:
           type: string
+          example: Azul
         category:
           type: string
+          example: Caminhão
         vin:
           type: string
+          example: 3TW HZXRAU W3 AA2893
       required:
       - license_plate
       - make
@@ -74,16 +88,21 @@ components:
       properties:
         license_plate:
           type: string
+          example: AAA9999
         make:
           type: string
+          example: Mercedes-Benz
         model:
           type: string
+          example: '1113'
         color:
           type: string
+          example: Azul
         category:
           type: string
+          example: Caminhão
         vin:
-          type: string
+          type: 3TW HZXRAU W3 AA2893
 paths:
   "/vehicles":
     get:
@@ -94,6 +113,9 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              example: []
     post:
       summary: create vehicle
       tags:
@@ -104,14 +126,34 @@ paths:
           description: created
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/vehicle"
+              example:
+                id: 479
+                license_plate: IGO62Q0
+                make: Ford
+                model: A5
+                color: Grey
+                category: Convertible
+                vin: 4Q1MV790FBPB93260
+                created_at: '2021-05-21T20:16:27.381Z'
+                updated_at: '2021-05-21T20:16:27.381Z'
         '422':
           description: unprocessable_entity
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/errors_object"
+              example:
+                errors:
+                  license_plate:
+                  - can't be blank
+                  make:
+                  - can't be blank
+                  model:
+                  - can't be blank
+                  color:
+                  - can't be blank
+                  category:
+                  - can't be blank
+                  vin:
+                  - can't be blank
       requestBody:
         content:
           application/json:
@@ -131,8 +173,24 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              example:
+                id: 480
+                license_plate: XVH-8187
+                make: BMW
+                model: CR-V
+                color: Violet
+                category: SUV
+                vin: 51E3M9Z8U80T30790
+                created_at: '2021-05-21T20:16:27.450Z'
+                updated_at: '2021-05-21T20:16:27.450Z'
         '404':
           description: not_found
+          content:
+            application/json:
+              example:
+                message: Record not found
     patch:
       summary: update vehicle
       tags:
@@ -141,14 +199,32 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              example:
+                license_plate: EUC5E72
+                model: Camry
+                make: Nissan
+                color: Grey
+                category: Extended Cab Pickup
+                vin: 5BI6USVHJ1GJ45343
+                id: 481
+                created_at: '2021-05-21T20:16:27.517Z'
+                updated_at: '2021-05-21T20:16:27.543Z'
         '404':
           description: not_found
+          content:
+            application/json:
+              example:
+                message: Record not found
         '422':
           description: unprocessable_entity
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/errors_object"
+              example:
+                errors:
+                  license_plate:
+                  - can't be blank
       requestBody:
         content:
           application/json:
@@ -162,14 +238,32 @@ paths:
       responses:
         '200':
           description: success
+          content:
+            application/json:
+              example:
+                license_plate: WXX-7542
+                model: Mustang
+                make: Ford
+                color: Black
+                category: Convertible
+                vin: 837679B2G20989251
+                id: 483
+                created_at: '2021-05-21T20:16:27.654Z'
+                updated_at: '2021-05-21T20:16:27.708Z'
         '404':
           description: not_found
+          content:
+            application/json:
+              example:
+                message: Record not found
         '422':
           description: unprocessable_entity
           content:
             application/json:
-              schema:
-                "$ref": "#/components/schemas/errors_object"
+              example:
+                errors:
+                  license_plate:
+                  - can't be blank
       requestBody:
         content:
           application/json:
@@ -184,6 +278,10 @@ paths:
           description: no_content
         '404':
           description: not_found
+          content:
+            application/json:
+              example:
+                message: Record not found
 servers:
 - url: http://{defaultHost}
   variables:
