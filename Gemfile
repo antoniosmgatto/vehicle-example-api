@@ -9,6 +9,8 @@ gem "bootsnap", ">= 1.4.4", require: false
 gem "pg", "~> 1.1"
 gem "puma", "~> 5.0"
 gem "rails", "~> 6.1.3", ">= 6.1.3.2"
+gem "rswag-api"
+gem "rswag-ui"
 
 # gem "jbuilder", "~> 2.7"
 # gem 'bcrypt', '~> 3.1.7'
@@ -22,6 +24,8 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "relaxed-rubocop", require: false
+  gem "rspec-rails"
+  gem "rswag-specs"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
