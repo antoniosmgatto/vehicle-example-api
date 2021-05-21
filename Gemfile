@@ -24,8 +24,6 @@ group :development, :test do
   gem "pry-byebug"
   gem "pry-rails"
   gem "relaxed-rubocop", require: false
-  gem "rspec-rails"
-  gem "rswag-specs"
   gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
@@ -39,6 +37,8 @@ end
 
 group :test do
   gem "capybara", require: false
+  gem "rspec-rails"
+  gem "rswag-specs"
   gem "selenium-webdriver", "~> 3.142", require: false
   gem "shoulda-matchers", require: false
   gem "webdrivers", "~> 4.0", require: false
