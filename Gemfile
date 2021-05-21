@@ -39,7 +39,6 @@ end
 
 group :test do
   gem "capybara", require: false
-  gem "rspec-rails", require: false
   gem "selenium-webdriver", "~> 3.142", require: false
   gem "shoulda-matchers", require: false
   gem "webdrivers", "~> 4.0", require: false
