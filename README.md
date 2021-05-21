@@ -30,6 +30,7 @@ docker-compose run -e RAILS_ENV=test --rm app bundle exec rspec
 DATABASE_HOST=localhost bundle exec rspec
 
 # Generate Swagger docs
-docker-compose run --rm app bundle exec rails rswag:specs:swaggerize
+docker-compose run -e RAILS_ENV=test -e SWAGGER_DRY_RUN=0 --rm app bundle exec rails rswag
+
 
 ```
