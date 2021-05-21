@@ -9,7 +9,9 @@ RSpec.describe "Vehicle API", swagger_doc: "v1/swagger.yaml", type: :request do
       tags "Vehicles"
       description "List all vehicles"
       response(200, :success) do
-        let(:vehicles) { create_list(:vehicle, 3) }
+        schema "$ref" => "#/components/schemas/vehicles"
+
+        before { create_list(:vehicle, 3) }
 
         run_test!
       end

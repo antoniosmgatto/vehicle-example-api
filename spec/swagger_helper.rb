@@ -37,8 +37,17 @@ RSpec.configure do |config|
               items: { type: "string" }
             }
           },
+          vehicles: {
+            type: "array",
+            additionalProperties: {
+              type: "array",
+              items: {
+                "$ref" => "#/components/schemas/vehicle"
+              }
+            }
+          },
           vehicle: {
-            type: :object,
+            type: "object",
             properties: {
               id: { type: :integer, example: 1 },
               license_plate: { type: :string, example: "AAA9999" },
@@ -53,7 +62,7 @@ RSpec.configure do |config|
             required: %w(id license_plate make model color category vin)
           },
           vehicle_new: {
-            type: :object,
+            type: "object",
             properties: {
               license_plate: { type: :string, example: "ABC9999" },
               make: { type: :string, example: "Mercedes-Benz" },
@@ -65,7 +74,7 @@ RSpec.configure do |config|
             required: %w(license_plate make model color category vin)
           },
           vehicle_edit: {
-            type: :object,
+            type: "object",
             properties: {
               license_plate: { type: :string, example: "AAA9999" },
               make: { type: :string, example: "Mercedes-Benz" },

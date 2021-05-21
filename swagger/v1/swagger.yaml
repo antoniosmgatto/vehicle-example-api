@@ -17,6 +17,12 @@ components:
         type: array
         items:
           type: string
+    vehicles:
+      type: array
+      additionalProperties:
+        type: array
+        items:
+          "$ref": "#/components/schemas/vehicle"
     vehicle:
       type: object
       properties:
@@ -115,7 +121,34 @@ paths:
           description: success
           content:
             application/json:
-              example: []
+              example:
+              - id: 570
+                license_plate: KUA-5671
+                make: BMW
+                model: A4
+                color: Beige
+                category: SUV
+                vin: 3CHWCL5AKZY310754
+                created_at: '2021-05-21T20:45:55.627Z'
+                updated_at: '2021-05-21T20:45:55.627Z'
+              - id: 571
+                license_plate: NQS1H27
+                make: Chevy
+                model: A4
+                color: Beige
+                category: Hatchback
+                vin: D1HKD9IW410P55188
+                created_at: '2021-05-21T20:45:55.639Z'
+                updated_at: '2021-05-21T20:45:55.639Z'
+              - id: 572
+                license_plate: VTS13V3
+                make: Toyota
+                model: S5
+                color: Orange
+                category: Minivan
+                vin: OZ7BT54JYE0H75719
+                created_at: '2021-05-21T20:45:55.649Z'
+                updated_at: '2021-05-21T20:45:55.649Z'
     post:
       summary: create vehicle
       tags:
@@ -127,15 +160,15 @@ paths:
           content:
             application/json:
               example:
-                id: 479
-                license_plate: IGO62Q0
-                make: Ford
-                model: A5
-                color: Grey
-                category: Convertible
-                vin: 4Q1MV790FBPB93260
-                created_at: '2021-05-21T20:16:27.381Z'
-                updated_at: '2021-05-21T20:16:27.381Z'
+                id: 573
+                license_plate: BEU2G76
+                make: BMW
+                model: MKS
+                color: Orange
+                category: Minivan
+                vin: 5D2UJY9A060G80428
+                created_at: '2021-05-21T20:45:55.737Z'
+                updated_at: '2021-05-21T20:45:55.737Z'
         '422':
           description: unprocessable_entity
           content:
@@ -176,15 +209,15 @@ paths:
           content:
             application/json:
               example:
-                id: 480
-                license_plate: XVH-8187
-                make: BMW
-                model: CR-V
-                color: Violet
+                id: 574
+                license_plate: GOC5R77
+                make: Ford
+                model: MKZ
+                color: Beige
                 category: SUV
-                vin: 51E3M9Z8U80T30790
-                created_at: '2021-05-21T20:16:27.450Z'
-                updated_at: '2021-05-21T20:16:27.450Z'
+                vin: INB0IZD0780074597
+                created_at: '2021-05-21T20:45:55.790Z'
+                updated_at: '2021-05-21T20:45:55.790Z'
         '404':
           description: not_found
           content:
@@ -202,15 +235,15 @@ paths:
           content:
             application/json:
               example:
-                license_plate: EUC5E72
-                model: Camry
-                make: Nissan
+                license_plate: HHF2C80
+                model: Altima
+                make: Buick
                 color: Grey
-                category: Extended Cab Pickup
-                vin: 5BI6USVHJ1GJ45343
-                id: 481
-                created_at: '2021-05-21T20:16:27.517Z'
-                updated_at: '2021-05-21T20:16:27.543Z'
+                category: Regular Cab Pickup
+                vin: 651K1OAM6FLQ80816
+                id: 575
+                created_at: '2021-05-21T20:45:55.866Z'
+                updated_at: '2021-05-21T20:45:55.890Z'
         '404':
           description: not_found
           content:
@@ -241,15 +274,15 @@ paths:
           content:
             application/json:
               example:
-                license_plate: WXX-7542
-                model: Mustang
-                make: Ford
-                color: Black
-                category: Convertible
-                vin: 837679B2G20989251
-                id: 483
-                created_at: '2021-05-21T20:16:27.654Z'
-                updated_at: '2021-05-21T20:16:27.708Z'
+                license_plate: JAE6J53
+                model: Malibu
+                make: Dodge
+                color: Red
+                category: Hatchback
+                vin: U3KNA8EY8G0N73741
+                id: 577
+                created_at: '2021-05-21T20:45:55.979Z'
+                updated_at: '2021-05-21T20:45:55.999Z'
         '404':
           description: not_found
           content:
