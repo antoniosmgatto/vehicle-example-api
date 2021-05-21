@@ -6,7 +6,7 @@ RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
   # NOTE: If you're using the rswag-api to serve API descriptions, you'll need
   # to ensure that it's configured to serve Swagger from the same folder
-  config.swagger_root = Rails.root.join("spec/swagger").to_s
+  config.swagger_root = Rails.root.join("swagger").to_s
 
   # Define one or more Swagger documents and provide global metadata for each one
   # When you run the 'rswag:specs:swaggerize' rake task, the complete Swagger will
@@ -21,6 +21,37 @@ RSpec.configure do |config|
         title: "Vehicle API V1",
         version: "v1",
         description: "This is the first version of my API"
+      },
+      components: {
+        schemas: {
+          vehicle: {
+            type: :object,
+            properties: {
+              id: { type: :integer },
+              license_plate: { type: :string },
+              make: { type: :string },
+              model: { type: :string },
+              color: { type: :string },
+              category: { type: :string },
+              vin: { type: :string },
+              created_at: { type: :datetime },
+              updated_at: { type: :datetime }
+            },
+            required: %w(license_plate make model color category vin)
+          },
+          new_vehicle: {
+            type: :object,
+            properties: {
+              license_plate: { type: :string },
+              make: { type: :string },
+              model: { type: :string },
+              color: { type: :string },
+              category: { type: :string },
+              vin: { type: :string }
+            },
+            required: %w(license_plate make model color category vin)
+          }
+        }
       },
       paths: {},
       servers: [
