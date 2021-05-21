@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "aki77.rails-db-schema",
+    "castwide.solargraph",
+    "christian-kohler.path-intellisense",
+    "hridoy.rails-snippets",
+    "kaiwood.endwise",
+    "mikestead.dotenv",
+    "ms-azuretools.vscode-docker",
+  ]
+}

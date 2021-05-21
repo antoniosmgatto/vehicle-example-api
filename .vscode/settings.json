@@ -1,0 +1,9 @@
+{
+  "ruby.useLanguageServer": false,
+  "[ruby]": {
+    "editor.formatOnSave": false
+  },
+  "solargraph.autoformat": true,
+  "solargraph.diagnostics": true,
+  "solargraph.formatting": true
+}
