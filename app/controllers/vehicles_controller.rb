@@ -12,7 +12,7 @@ class VehiclesController < ApplicationController
     if @vehicle.save
       render json: @vehicle, status: :created
     else
-      render json: @vehicle.errors, status: :unprocessable_entity
+      render json: { errors: @vehicle.errors }, status: :unprocessable_entity
     end
   end
 
@@ -24,7 +24,7 @@ class VehiclesController < ApplicationController
     if @vehicle.update(vehicle_params)
       render json: @vehicle, status: :ok
     else
-      render json: @vehicle.errors, status: :unprocessable_entity
+      render json: { errors: @vehicle.errors }, status: :unprocessable_entity
     end
   end
 
