@@ -1,84 +1,140 @@
 # frozen_string_literal: true
 
-require "rails_helper"
+require "swagger_helper"
 
-RSpec.describe "/vehicles", type: :request do
-  let(:valid_attributes) { attributes_for(:vehicle) }
-  let(:invalid_attributes) { { license_plate: "" } }
-  let(:json) { response.parsed_body }
+# rubocop:disable RSpec/EmptyExampleGroup
+RSpec.describe "Vehicle API", swagger_doc: "v1/swagger.yaml", type: :request do
+  path "/vehicles" do
+    get("list vehicles") do
+      tags "Vehicles"
+      description "List all vehicles"
+      produces "application/json"
+      response(200, :success) do
+        let(:vehicles) { create_list(:vehicle, 3) }
 
-  describe "GET /index" do
-    before do
-      create_list(:vehicle, 2)
-
-      get vehicles_url
-    end
-
-    it { expect(response.content_type).to eq("application/json; charset=utf-8") }
-
-    it { expect(response).to have_http_status(:success) }
-
-    it "returns the expected number of records" do
-      expect(json.size).to eq 2
-    end
-  end
-
-  describe "GET /show" do
-    let(:vehicle) { create(:vehicle) }
-
-    before { get vehicle_url(vehicle) }
-
-    it { expect(response.content_type).to eq("application/json; charset=utf-8") }
-
-    it { expect(response).to have_http_status(:success) }
-  end
-
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new vehicle" do
-        expect {
-          post vehicles_url, params: valid_attributes, headers: { content_type: "application/json" }
-        }.to change(Vehicle, :count).by(1)
+        run_test!
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new vehicle" do
-        expect {
-          post vehicles_url, params: invalid_attributes
-        }.to change(Vehicle, :count).by(0)
+    post("create vehicle") do
+      tags "Vehicles"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :vehicle, in: :body, schema: { "$ref" => "#/components/schemas/vehicle_new" }
+
+      response(201, :created) do
+        schema "$ref" => "#/components/schemas/vehicle"
+
+        let(:vehicle) { attributes_for(:vehicle) }
+
+        run_test!
+      end
+
+      response(422, :unprocessable_entity) do
+        schema "$ref" => "#/components/schemas/errors_object"
+        let(:vehicle) { {} }
+
+        run_test!
       end
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
-      let(:vehicle) { create(:vehicle) }
-      let(:new_attributes) { attributes_for(:vehicle) }
+  path "/vehicles/{id}" do
+    parameter name: "id", in: :path, type: :integer
 
-      before do
-        patch vehicle_url(vehicle), params: new_attributes
+    get("show vehicle") do
+      tags "Vehicles"
+      consumes "application/json"
+      produces "application/json"
 
-        vehicle.reload
+      response(200, :success) do
+        let(:id) { create(:vehicle).id }
+
+        run_test!
       end
 
-      it "updates the requested vehicle" do
-        expect(vehicle).to have_attributes(new_attributes)
+      response(404, :not_found) do
+        let(:id) { "1" }
+
+        run_test!
       end
-
-      it { expect(response.content_type).to eq("application/json; charset=utf-8") }
-
-      it { expect(response).to have_http_status(:success) }
     end
-  end
 
-  describe "DELETE /destroy" do
-    let!(:vehicle) { create(:vehicle) }
+    patch("update vehicle") do
+      tags "Vehicles"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :vehicle, in: :body, schema: { "$ref" => "#/components/schemas/vehicle_edit" }
 
-    it "deletes a vehicle" do
-      expect {
-        delete vehicle_url(vehicle)
-      }.to change(Vehicle, :count).by(-1)
+      response(200, :success) do
+        let(:id) { create(:vehicle).id }
+        let(:vehicle) { attributes_for(:vehicle) }
+
+        run_test!
+      end
+
+      response(404, :not_found) do
+        let(:id) { "1" }
+        let(:vehicle) { {} }
+
+        run_test!
+      end
+
+      response(422, :unprocessable_entity) do
+        schema "$ref" => "#/components/schemas/errors_object"
+
+        let(:id) { create(:vehicle).id }
+        let(:vehicle) { { license_plate: nil } }
+
+        run_test!
+      end
+    end
+
+    put("update vehicle") do
+      tags "Vehicles"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :vehicle, in: :body, schema: { "$ref" => "#/components/schemas/vehicle_edit" }
+
+      response(200, :success) do
+        let(:id) { create(:vehicle).id }
+        let(:vehicle) { attributes_for(:vehicle) }
+
+        run_test!
+      end
+
+      response(404, :not_found) do
+        let(:id) { "1" }
+        let(:vehicle) { {} }
+
+        run_test!
+      end
+
+      response(422, :unprocessable_entity) do
+        schema "$ref" => "#/components/schemas/errors_object"
+
+        let(:id) { create(:vehicle).id }
+        let(:vehicle) { { license_plate: nil } }
+
+        run_test!
+      end
+    end
+
+    delete("delete vehicle") do
+      tags "Vehicles"
+
+      response(204, :no_content) do
+        let(:id) { create(:vehicle).id }
+
+        run_test!
+      end
+
+      response(404, :not_found) do
+        let(:id) { "1" }
+
+        run_test!
+      end
     end
   end
 end
+# rubocop:enable RSpec/EmptyExampleGroup
