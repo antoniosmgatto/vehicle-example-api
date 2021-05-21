@@ -24,6 +24,19 @@ RSpec.configure do |config|
       },
       components: {
         schemas: {
+          errors_object: {
+            type: "object",
+            properties: {
+              errors: { "$ref" => "#/components/schemas/errors_map" }
+            }
+          },
+          errors_map: {
+            type: "object",
+            additionalProperties: {
+              type: "array",
+              items: { type: "string" }
+            }
+          },
           vehicle: {
             type: :object,
             properties: {
@@ -34,12 +47,12 @@ RSpec.configure do |config|
               color: { type: :string },
               category: { type: :string },
               vin: { type: :string },
-              created_at: { type: :datetime },
-              updated_at: { type: :datetime }
+              created_at: { type: :string, format: "date-time" },
+              updated_at: { type: :string, format: "date-time" }
             },
             required: %w(license_plate make model color category vin)
           },
-          new_vehicle: {
+          vehicle_new: {
             type: :object,
             properties: {
               license_plate: { type: :string },
@@ -50,6 +63,17 @@ RSpec.configure do |config|
               vin: { type: :string }
             },
             required: %w(license_plate make model color category vin)
+          },
+          vehicle_edit: {
+            type: :object,
+            properties: {
+              license_plate: { type: :string },
+              make: { type: :string },
+              model: { type: :string },
+              color: { type: :string },
+              category: { type: :string },
+              vin: { type: :string }
+            }
           }
         }
       },
@@ -72,4 +96,10 @@ RSpec.configure do |config|
   # the key, this may want to be changed to avoid putting yaml in json files.
   # Defaults to json. Accepts ':json' and ':yaml'.
   config.swagger_format = :yaml
+
+  config.after(:each, type: :request) do |example|
+    next if response&.body&.empty?
+
+    example.metadata[:response][:examples] = { "application/json" => JSON.parse(response.body, symbolize_names: true) }
+  end
 end
